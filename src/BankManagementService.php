@@ -157,14 +157,16 @@ class BankManagementService
                     $frozenBalance->reverse()
                 )
                 ->withDescription("Currency " . $curId . " is switch off"
-                    . " correction write off operation");
+                    . " correction write off operation")
+                ->asConfirmed();
             $correctionWriteInOperation = $this->currencyOperationManager
                 ->createBankCorrectionOperation(
                     $acc->getId(),
                     $conversionAmount
                 )
                 ->withDescription("Currency " . $curId . " is switch off"
-                    . " correction write in operation");
+                    . " correction write in operation")
+                ->asConfirmed();
             $this->currencyOperationManager->saveOperations([
                 $correctionWriteOffOperation,
                 $correctionWriteInOperation,
