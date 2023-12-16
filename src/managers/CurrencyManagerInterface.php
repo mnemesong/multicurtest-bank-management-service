@@ -41,11 +41,13 @@ interface CurrencyManagerInterface
     /**
      * @param string $curId
      * @param CurrencyConversionMultiplierVal[] $conversionMultipliersTo
+     * @param int $decimalPosition
      * @return void
      */
     public function addCurrency(
         string $curId,
-        array $conversionMultipliersTo
+        array $conversionMultipliersTo,
+        int $decimalPosition
     ): void;
 
     /**

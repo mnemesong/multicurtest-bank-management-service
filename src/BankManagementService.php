@@ -39,12 +39,16 @@ class BankManagementService
     /**
      * @param string $curId
      * @param CurrencyConversionMultiplierVal[] $conversionMultipliersTo
+     * @param int $decimalPosition
      * @return void
      */
     public function createNewCurrency(
         string $curId,
-        array $conversionMultipliersTo
+        array $conversionMultipliersTo,
+        int $decimalPosition
     ): void {
+        Assert::true($decimalPosition >= 0,
+            "Decimal position should be positive integer number");
         $allExistsCurrencies = $this->currencyManager->getAllCurrenciesExists();
         $curId = $this->currencyManager->convertNameToNewCurrencyToValid($curId);
         Assert::false(
@@ -55,7 +59,8 @@ class BankManagementService
             $allExistsCurrencies,
             $conversionMultipliersTo
         );
-        $this->currencyManager->addCurrency($curId, $conversionMultipliersTo);
+        $this->currencyManager
+            ->addCurrency($curId, $conversionMultipliersTo, $decimalPosition);
     }
 
     /**
@@ -208,7 +213,7 @@ class BankManagementService
     ): void {
         Assert::eq(
             count($curIds),
-            $curMultipliers,
+            count($curMultipliers),
             "Count of multipliers more then count of currencies"
         );
         $curMultiplierIds = array_map(

@@ -76,7 +76,8 @@ class CurrencyManagerStub implements CurrencyManagerInterface
 
     public function addCurrency(
         string $curId,
-        array $conversionMultipliersTo
+        array $conversionMultipliersTo,
+        int $decimalPosition
     ): void {
         Assert::false(in_array($curId, $this->currencies));
         $this->currencies[] = $curId;
