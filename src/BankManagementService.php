@@ -68,7 +68,7 @@ class BankManagementService
      * @param string $switchToDefaultCurId
      * @return void
      */
-    public function switchOffCurrencySupport(
+    public function switchOffCurrency(
         string $curId,
         string $switchToDefaultCurId
     ): void {
@@ -99,7 +99,7 @@ class BankManagementService
      * @param CurrencyConversionMultiplierVal $curConversionMultiplier
      * @return void
      */
-    public function changeSomeConversionMultipliersForCurrency(
+    public function changeConversionMultiplierForCurrency(
         string $curId,
         CurrencyConversionMultiplierVal $curConversionMultiplier
     ): void {
@@ -136,7 +136,7 @@ class BankManagementService
                     ->addCurrencyIds([$newDefaultCurrencyInAcc])
                     ->changeMainCurrency($newDefaultCurrencyInAcc);
             } else {
-                $acc->changeMainCurrency($otherCurrencies[0]);
+                $acc = $acc->changeMainCurrency($otherCurrencies[0]);
             }
         }
         return $acc->removeCurrencyIds([$curId]);

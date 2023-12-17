@@ -4,10 +4,13 @@ namespace Pantagruel74\MulticurtestBankManagementServiceStubs\records;
 
 use Pantagruel74\MulticurtestBankManagementService\records\CurrencyOperationInAccountRequestRecInterface;
 use Pantagruel74\MulticurtestBankManagementServiceStubs\values\AmountCurrencyValStub;
+use Ramsey\Uuid\Uuid;
+use Webmozart\Assert\Assert;
 
 class CurrencyOperationInAccountRequestRecStub implements
     CurrencyOperationInAccountRequestRecInterface
 {
+    private string $id;
     private string $description;
     private AmountCurrencyValStub $amount;
     private bool $isDeclined;
@@ -28,6 +31,7 @@ class CurrencyOperationInAccountRequestRecStub implements
         bool $isDeclined = false,
         bool $isConfirmed = false
     ) {
+        $this->id = Uuid::uuid4();
         $this->accId = $accId;
         $this->description = $description;
         $this->amount = $amount;
@@ -41,6 +45,14 @@ class CurrencyOperationInAccountRequestRecStub implements
     public function getAccId(): string
     {
         return $this->accId;
+    }
+
+    /**
+     * @return \Ramsey\Uuid\UuidInterface|string
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
@@ -66,6 +78,7 @@ class CurrencyOperationInAccountRequestRecStub implements
 
     public function asDeclined(): CurrencyOperationInAccountRequestRecInterface
     {
+        Assert::false($this->isConfirmed);
         $c = clone $this;
         $c->isDeclined = true;
         return $c;
@@ -92,6 +105,7 @@ class CurrencyOperationInAccountRequestRecStub implements
      */
     public function asConfirmed(): CurrencyOperationInAccountRequestRecInterface
     {
+        Assert::false($this->isDeclined);
         $c = clone $this;
         $c->isConfirmed = true;
         return $c;

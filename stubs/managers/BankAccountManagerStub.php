@@ -33,6 +33,8 @@ class BankAccountManagerStub implements BankAccountMangerInterface
      */
     public function saveAccounts(array $accs): void
     {
+        print_r("Save accounts: ");
+        print_r($accs);
         Assert::allIsAOf($accs, BankAccountRecStub::class);
         $addAccIds = array_map(
             fn(BankAccountRecStub $acc) => $acc->getId(),
@@ -46,5 +48,15 @@ class BankAccountManagerStub implements BankAccountMangerInterface
             ),
             $accs
         );
+    }
+
+    public function findAcc(string $accId): BankAccountRecStub
+    {
+        $acc = array_values(array_filter(
+            $this->accs,
+            fn(BankAccountRecStub $acc) => ($acc->getId() === $accId)
+        ));
+        Assert::notEmpty($acc);
+        return $acc[0];
     }
 }

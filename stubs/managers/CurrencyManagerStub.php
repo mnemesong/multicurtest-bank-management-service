@@ -5,6 +5,7 @@ namespace Pantagruel74\MulticurtestBankManagementServiceStubs\managers;
 use Pantagruel74\MulticurtestBankManagementService\managers\CurrencyManagerInterface;
 use Pantagruel74\MulticurtestBankManagementService\values\AmountInCurrencyValInterface;
 use Pantagruel74\MulticurtestBankManagementService\values\CurrencyConversionMultiplierVal;
+use Pantagruel74\MulticurtestBankManagementServiceStubs\records\BankAccountRecStub;
 use Pantagruel74\MulticurtestBankManagementServiceStubs\values\AmountCurrencyValStub;
 use Webmozart\Assert\Assert;
 
