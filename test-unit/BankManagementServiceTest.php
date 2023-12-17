@@ -24,7 +24,6 @@ class BankManagementServiceTest extends TestCase
         $service = new BankManagementService(
             $accountManager,
             $currencyManager,
-            $operationsManager,
             $balanceManager
         );
         $this->assertEquals(["RUB", "EUR"],
@@ -53,7 +52,6 @@ class BankManagementServiceTest extends TestCase
         $service = new BankManagementService(
             $accountManager,
             $currencyManager,
-            $operationsManager,
             $balanceManager
         );
         $this->assertEquals(["RUB", "EUR"],
@@ -74,7 +72,6 @@ class BankManagementServiceTest extends TestCase
         $service = new BankManagementService(
             $accountManager,
             $currencyManager,
-            $operationsManager,
             $balanceManager
         );
         $this->assertEquals(["RUB", "EUR"],
@@ -95,7 +92,6 @@ class BankManagementServiceTest extends TestCase
         $service = new BankManagementService(
             $accountManager,
             $currencyManager,
-            $operationsManager,
             $balanceManager
         );
         $this->assertEquals(["RUB", "EUR"],
@@ -115,7 +111,6 @@ class BankManagementServiceTest extends TestCase
         $service = new BankManagementService(
             $accountManager,
             $currencyManager,
-            $operationsManager,
             $balanceManager
         );
         $this->assertEquals(["RUB", "EUR"],
@@ -151,7 +146,6 @@ class BankManagementServiceTest extends TestCase
         $service = new BankManagementService(
             $accountManager,
             $currencyManager,
-            $operationsManager,
             $balanceManager
         );
         $this->assertEquals(["RUB", "EUR"],
@@ -172,7 +166,6 @@ class BankManagementServiceTest extends TestCase
         $service = new BankManagementService(
             $accountManager,
             $currencyManager,
-            $operationsManager,
             $balanceManager
         );
         $this->assertEquals(["RUB", "EUR"],
@@ -213,7 +206,6 @@ class BankManagementServiceTest extends TestCase
         $service = new BankManagementService(
             $accountManager,
             $currencyManager,
-            $operationsManager,
             $balanceManager
         );
         $this->assertEquals(["RUB", "EUR"],

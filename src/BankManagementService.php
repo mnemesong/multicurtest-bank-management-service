@@ -5,9 +5,7 @@ namespace Pantagruel74\MulticurtestBankManagementService;
 use Pantagruel74\MulticurtestBankManagementService\managers\BankAccountBalanceManagerInterface;
 use Pantagruel74\MulticurtestBankManagementService\managers\BankAccountMangerInterface;
 use Pantagruel74\MulticurtestBankManagementService\managers\CurrencyManagerInterface;
-use Pantagruel74\MulticurtestBankManagementService\managers\CurrencyOperationManagerInterface;
 use Pantagruel74\MulticurtestBankManagementService\records\BankAccountRecInterface;
-use Pantagruel74\MulticurtestBankManagementService\records\CurrencyOperationInAccountRequestRecInterface;
 use Pantagruel74\MulticurtestBankManagementService\values\CurrencyConversionMultiplierVal;
 use Webmozart\Assert\Assert;
 
@@ -15,24 +13,20 @@ class BankManagementService
 {
     private BankAccountMangerInterface $bankAccountManger;
     private CurrencyManagerInterface $currencyManager;
-    private CurrencyOperationManagerInterface $currencyOperationManager;
     private BankAccountBalanceManagerInterface $bankAccountBalanceManager;
 
     /**
      * @param BankAccountMangerInterface $bankAccountManger
      * @param CurrencyManagerInterface $currencyManager
-     * @param CurrencyOperationManagerInterface $currencyOperationManager
      * @param BankAccountBalanceManagerInterface $bankAccountBalanceManager
      */
     public function __construct(
         BankAccountMangerInterface $bankAccountManger,
         CurrencyManagerInterface $currencyManager,
-        CurrencyOperationManagerInterface $currencyOperationManager,
         BankAccountBalanceManagerInterface $bankAccountBalanceManager
     ) {
         $this->bankAccountManger = $bankAccountManger;
         $this->currencyManager = $currencyManager;
-        $this->currencyOperationManager = $currencyOperationManager;
         $this->bankAccountBalanceManager = $bankAccountBalanceManager;
     }
 
@@ -87,7 +81,11 @@ class BankManagementService
         $this->bankAccountManger->saveAccounts($allAccounts);
         sleep(2);
         foreach ($allAccounts as $acc) {
-            $this->declineAllOperationsInProcess($acc, $curId);
+            $this->bankAccountBalanceManager->declineAllOperationsInProcessAfter(
+                $acc->getId(),
+                $curId,
+                $acc->getLastSummaryTimestamp()
+            );
         }
         foreach ($allAccounts as $acc) {
             $this->convertCurrencyBalanceToMainCurrency($acc, $curId);
@@ -156,50 +154,21 @@ class BankManagementService
         if($frozenBalance->isPositive() && !$frozenBalance->isZero()) {
             $conversionAmount = $this->currencyManager
                 ->convertAmountTo($frozenBalance, $acc->getMainCurrency());
-            $correctionWriteOffOperation = $this->currencyOperationManager
-                ->createBankCorrectionOperation(
+            $this->bankAccountBalanceManager
+                ->addAndConfirmBalanceCorrectionOperation(
                     $acc->getId(),
-                    $frozenBalance->reverse()
-                )
-                ->withDescription("Currency " . $curId . " is switch off"
-                    . " correction write off operation")
-                ->asConfirmed();
-            $correctionWriteInOperation = $this->currencyOperationManager
-                ->createBankCorrectionOperation(
+                    $frozenBalance->reverse(),
+                    "Currency " . $curId . " is switch off"
+                        . " correction write off operation"
+                );
+            $this->bankAccountBalanceManager
+                ->addAndConfirmBalanceCorrectionOperation(
                     $acc->getId(),
-                    $conversionAmount
-                )
-                ->withDescription("Currency " . $curId . " is switch off"
-                    . " correction write in operation")
-                ->asConfirmed();
-            $this->currencyOperationManager->saveOperations([
-                $correctionWriteOffOperation,
-                $correctionWriteInOperation,
-            ]);
+                    $conversionAmount,
+                    "Currency " . $curId . " is switch off"
+                        . " correction write in operation"
+                );
         }
-    }
-
-    /**
-     * @param BankAccountRecInterface $acc
-     * @param string $curId
-     * @return void
-     */
-    private function declineAllOperationsInProcess(
-        BankAccountRecInterface $acc,
-        string $curId
-    ): void {
-        $operationsInProcess = $this->currencyOperationManager
-            ->getAllOperationsInProcessAfter(
-                $acc->getId(),
-                $curId,
-                $acc->getLastSummaryTimestamp()
-            );
-        $operationsInProcess = array_map(
-            fn(CurrencyOperationInAccountRequestRecInterface $op)
-                => $op->asDeclined(),
-            $operationsInProcess
-        );
-        $this->currencyOperationManager->saveOperations($operationsInProcess);
     }
 
     /**

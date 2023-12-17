@@ -2,14 +2,12 @@
 
 namespace Pantagruel74\MulticurtestBankManagementServiceStubs\managers;
 
-use Pantagruel74\MulticurtestBankManagementService\managers\CurrencyOperationManagerInterface;
-use Pantagruel74\MulticurtestBankManagementService\records\CurrencyOperationInAccountRequestRecInterface;
 use Pantagruel74\MulticurtestBankManagementService\values\AmountInCurrencyValInterface;
 use Pantagruel74\MulticurtestBankManagementServiceStubs\records\CurrencyOperationInAccountRequestRecStub;
 use Pantagruel74\MulticurtestBankManagementServiceStubs\values\AmountCurrencyValStub;
 use Webmozart\Assert\Assert;
 
-class CurrencyOperationManagerStub implements CurrencyOperationManagerInterface
+class CurrencyOperationManagerStub
 {
     private array $operations = [];
 
@@ -52,7 +50,7 @@ class CurrencyOperationManagerStub implements CurrencyOperationManagerInterface
     public function createBankCorrectionOperation(
         string $accountId,
         AmountInCurrencyValInterface $amountInCurrencyVal
-    ): CurrencyOperationInAccountRequestRecInterface {
+    ): CurrencyOperationInAccountRequestRecStub {
         return new CurrencyOperationInAccountRequestRecStub(
             $accountId,
             "",

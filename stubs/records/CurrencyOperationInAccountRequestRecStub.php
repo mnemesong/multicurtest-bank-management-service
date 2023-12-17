@@ -2,13 +2,11 @@
 
 namespace Pantagruel74\MulticurtestBankManagementServiceStubs\records;
 
-use Pantagruel74\MulticurtestBankManagementService\records\CurrencyOperationInAccountRequestRecInterface;
 use Pantagruel74\MulticurtestBankManagementServiceStubs\values\AmountCurrencyValStub;
 use Ramsey\Uuid\Uuid;
 use Webmozart\Assert\Assert;
 
-class CurrencyOperationInAccountRequestRecStub implements
-    CurrencyOperationInAccountRequestRecInterface
+class CurrencyOperationInAccountRequestRecStub
 {
     private string $id;
     private string $description;
@@ -70,13 +68,13 @@ class CurrencyOperationInAccountRequestRecStub implements
 
     public function withDescription(
         string $desc
-    ): CurrencyOperationInAccountRequestRecInterface {
+    ): self {
         $c = clone $this;
         $c->description = $desc;
         return $c;
     }
 
-    public function asDeclined(): CurrencyOperationInAccountRequestRecInterface
+    public function asDeclined(): self
     {
         Assert::false($this->isConfirmed);
         $c = clone $this;
@@ -100,10 +98,7 @@ class CurrencyOperationInAccountRequestRecStub implements
         return $this->isDeclined;
     }
 
-    /**
-     * @return CurrencyOperationInAccountRequestRecInterface
-     */
-    public function asConfirmed(): CurrencyOperationInAccountRequestRecInterface
+    public function asConfirmed(): self
     {
         Assert::false($this->isDeclined);
         $c = clone $this;
