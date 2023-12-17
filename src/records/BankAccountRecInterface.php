@@ -24,9 +24,10 @@ interface BankAccountRecInterface
     public function removeCurrencyIds(array $curIds): self;
 
     /**
+     * @param string $curId
      * @return int|null
      */
-    public function getLastSummaryTimestamp(): ?int;
+    public function getLastSummaryTimestamp(string $curId): ?int;
 
     /**
      * @param string $curId

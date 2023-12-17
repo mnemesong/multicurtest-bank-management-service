@@ -182,10 +182,8 @@ class BankManagementServiceTest extends TestCase
         $acc1Id = "acc1-id";
         $acc2Id = "acc2-id";
         $accountManager = new BankAccountManagerStub([
-            new BankAccountRecStub($acc1Id, ["EUR", "RUB"],
-                "EUR", null),
-            new BankAccountRecStub($acc2Id, ["EUR"],
-                "EUR", null)
+            new BankAccountRecStub($acc1Id, ["EUR", "RUB"], "EUR"),
+            new BankAccountRecStub($acc2Id, ["EUR"], "EUR")
         ]);
         $currencyManager = new CurrencyManagerStub();
         $operationsManager = new CurrencyOperationManagerStub([

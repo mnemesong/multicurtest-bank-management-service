@@ -84,7 +84,7 @@ class BankManagementService
             $this->bankAccountBalanceManager->declineAllOperationsInProcessAfter(
                 $acc->getId(),
                 $curId,
-                $acc->getLastSummaryTimestamp()
+                $acc->getLastSummaryTimestamp($curId)
             );
         }
         foreach ($allAccounts as $acc) {

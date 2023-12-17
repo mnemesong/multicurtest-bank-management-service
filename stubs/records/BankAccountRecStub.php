@@ -10,26 +10,22 @@ class BankAccountRecStub implements BankAccountRecInterface
     private string $id;
     private array $currencies;
     private string $mainCurrency;
-    private ?int $lastSummaryTimestamp;
 
     /**
      * @param string $id
      * @param array $currencies
      * @param string $mainCurrency
-     * @param int|null $lastSummaryTimestamp
      */
     public function __construct(
         string $id,
         array $currencies,
-        string $mainCurrency,
-        ?int $lastSummaryTimestamp
+        string $mainCurrency
     ) {
         Assert::allString($currencies);
         Assert::inArray($mainCurrency, $currencies);
         $this->id = $id;
         $this->currencies = $currencies;
         $this->mainCurrency = $mainCurrency;
-        $this->lastSummaryTimestamp = $lastSummaryTimestamp;
     }
 
     public function getId(): string
@@ -62,9 +58,9 @@ class BankAccountRecStub implements BankAccountRecInterface
         return $c;
     }
 
-    public function getLastSummaryTimestamp(): ?int
+    public function getLastSummaryTimestamp(string $curId): ?int
     {
-        return $this->lastSummaryTimestamp;
+        return null;
     }
 
     public function changeMainCurrency(string $curId): BankAccountRecInterface
