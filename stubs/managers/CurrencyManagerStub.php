@@ -34,6 +34,10 @@ class CurrencyManagerStub implements CurrencyManagerInterface
         ];
     }
 
+    public function addUsdForce() {
+        $this->currencies[] = "USD";
+    }
+
     /**
      * @return string[]
      */

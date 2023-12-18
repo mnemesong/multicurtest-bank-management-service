@@ -177,7 +177,7 @@ class BankManagementServiceTest extends TestCase
         );
     }
 
-    public function testSwitchOffCurrencyValid()
+    public function testSwitchOffCurrencyValid1()
     {
         $acc1Id = "acc1-id";
         $acc2Id = "acc2-id";
@@ -285,7 +285,6 @@ class BankManagementServiceTest extends TestCase
             $accountManager->findAcc($acc1Id)->getMainCurrency(),
             "RUB"
         );
-        print_r($operationsManager);
         //Acc1 EUR:
         $this->assertEquals(
             0,
@@ -342,6 +341,39 @@ class BankManagementServiceTest extends TestCase
                 ->calcCurrencyBalanceInAccount($acc2Id,"RUB",false)
                 ->getVal()
         );
+    }
+
+    public function testSwitchOffCurrencyValid2()
+    {
+        $acc1Id = "acc1-id";
+        $accountManager = new BankAccountManagerStub([
+            new BankAccountRecStub($acc1Id, ["EUR", "RUB", "USD"], "EUR"),
+        ]);
+        $currencyManager = new CurrencyManagerStub();
+        $currencyManager->addUsdForce();
+        $operationsManager = new CurrencyOperationManagerStub([
+            new CurrencyOperationInAccountRequestRecStub($acc1Id, "",
+                new AmountCurrencyValStub("EUR", 100), false, true),
+            new CurrencyOperationInAccountRequestRecStub($acc1Id, "",
+                new AmountCurrencyValStub("RUB", 10000), false, true),
+            new CurrencyOperationInAccountRequestRecStub($acc1Id, "",
+                new AmountCurrencyValStub("USD", 50), false, true),
+        ]);
+        $balanceManager = new BankAccountBalanceManagerStub($operationsManager);
+        $service = new BankManagementService(
+            $accountManager,
+            $currencyManager,
+            $balanceManager
+        );
+        $this->assertEquals(["RUB", "EUR", "USD"],
+            $currencyManager->getAllCurrenciesExists());
+        $service->switchOffCurrency("USD", "RUB");
+        $this->assertEquals(0, $operationsManager
+            ->calcCurrencyBalanceInAccount($acc1Id, "USD", true)
+            ->getVal());
+        $this->assertEquals(15000, $operationsManager
+            ->calcCurrencyBalanceInAccount($acc1Id, "RUB", true)
+            ->getVal());
     }
 
 }

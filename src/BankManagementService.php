@@ -88,7 +88,13 @@ class BankManagementService
             );
         }
         foreach ($allAccounts as $acc) {
-            $this->convertCurrencyBalanceToMainCurrency($acc, $curId);
+            if(in_array($switchToDefaultCurId, $acc->getCurrencyIds())) {
+                $this->convertCurrencyBalanceToTargetCurrency($acc, $curId,
+                    $switchToDefaultCurId);
+            } else {
+                $this->convertCurrencyBalanceToTargetCurrency($acc, $curId,
+                    $acc->getMainCurrency());
+            }
         }
     }
 
@@ -125,10 +131,6 @@ class BankManagementService
         string $newDefaultCurrencyInAcc
     ): BankAccountRecInterface {
         if($acc->getMainCurrency() === $curId) {
-            $otherCurrencies = array_values(array_filter(
-                $acc->getCurrencyIds(),
-                fn(string $c) => ($c !== $curId)
-            ));
             $acc = (in_array($newDefaultCurrencyInAcc, $acc->getCurrencyIds())
                     ? $acc
                     : $acc->addCurrencyIds([$newDefaultCurrencyInAcc]))
@@ -140,17 +142,19 @@ class BankManagementService
     /**
      * @param BankAccountRecInterface $acc
      * @param string $curId
+     * @param string $targetCurId
      * @return void
      */
-    private function convertCurrencyBalanceToMainCurrency(
+    private function convertCurrencyBalanceToTargetCurrency(
         BankAccountRecInterface $acc,
-        string $curId
+        string $curId,
+        string $targetCurId
     ): void {
         $frozenBalance = $this->bankAccountBalanceManager
             ->calcFrozenBalanceInCurrencyInAccount($acc->getId(), $curId);
         if($frozenBalance->isPositive() && !$frozenBalance->isZero()) {
             $conversionAmount = $this->currencyManager
-                ->convertAmountTo($frozenBalance, $acc->getMainCurrency());
+                ->convertAmountTo($frozenBalance, $targetCurId);
             $this->bankAccountBalanceManager
                 ->addAndConfirmBalanceCorrectionOperation(
                     $acc->getId(),
