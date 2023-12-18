@@ -129,13 +129,10 @@ class BankManagementService
                 $acc->getCurrencyIds(),
                 fn(string $c) => ($c !== $curId)
             ));
-            if(count($otherCurrencies) === 0) {
-                $acc = $acc
-                    ->addCurrencyIds([$newDefaultCurrencyInAcc])
-                    ->changeMainCurrency($newDefaultCurrencyInAcc);
-            } else {
-                $acc = $acc->changeMainCurrency($otherCurrencies[0]);
-            }
+            $acc = (in_array($newDefaultCurrencyInAcc, $acc->getCurrencyIds())
+                    ? $acc
+                    : $acc->addCurrencyIds([$newDefaultCurrencyInAcc]))
+                ->changeMainCurrency($newDefaultCurrencyInAcc);
         }
         return $acc->removeCurrencyIds([$curId]);
     }
