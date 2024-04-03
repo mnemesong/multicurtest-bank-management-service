@@ -32,6 +32,8 @@ namespace Pantagruel74\MulticurtestBankManagementService;
 class BankManagementService
 {
     /**
+     * Command to create a new currency in the bank, with definition
+     * of multipliers to all else existing currencies.
      * @param string $curId
      * @param CurrencyConversionMultiplierVal[] $conversionMultipliersTo
      * @param int $decimalPosition
@@ -44,6 +46,8 @@ class BankManagementService
     ): void {...}
 
     /**
+     * Command to switch off currency in the bank and freeze all amounts
+     * in all account in this currency.
      * @param string $curId
      * @param string $switchToDefaultCurId
      * @return void
@@ -54,6 +58,8 @@ class BankManagementService
     ): void {...}
 
     /**
+     * Command to change conversion multiplier from currency
+     * to currency in the bank.
      * @param string $curId
      * @param CurrencyConversionMultiplierVal $curConversionMultiplier
      * @return void
