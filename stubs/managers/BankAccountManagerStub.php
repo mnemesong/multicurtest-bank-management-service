@@ -6,6 +6,9 @@ use Pantagruel74\MulticurtestBankManagementService\managers\BankAccountMangerInt
 use Pantagruel74\MulticurtestBankManagementServiceStubs\records\BankAccountRecStub;
 use Webmozart\Assert\Assert;
 
+/**
+ * Stub of BankAccountManager for tests
+ */
 class BankAccountManagerStub implements BankAccountMangerInterface
 {
     private array $accs = [];

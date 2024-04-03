@@ -5,6 +5,11 @@ Divan.ru test task: Bank management service
 ## Description
 Service, that provides api for global currency changing operations in the bank.
 
+All transactions executes in aggregation:
+- BankAccountRec
+- AmountCurrencyVal
+- CurrencyConversionMultiplierVal
+
 
 ## Source structure
 - managers

@@ -2,6 +2,9 @@
 
 namespace Pantagruel74\MulticurtestBankManagementService\values;
 
+/**
+ * Value-object of currency to currency conversion multiplier.
+ */
 class CurrencyConversionMultiplierVal
 {
     private string $curTo;

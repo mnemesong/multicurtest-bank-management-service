@@ -7,6 +7,9 @@ use Pantagruel74\MulticurtestBankManagementServiceStubs\records\CurrencyOperatio
 use Pantagruel74\MulticurtestBankManagementServiceStubs\values\AmountCurrencyValStub;
 use Webmozart\Assert\Assert;
 
+/**
+ * Stub of CurrencyOperationManager for tests
+ */
 class CurrencyOperationManagerStub
 {
     private array $operations = [];

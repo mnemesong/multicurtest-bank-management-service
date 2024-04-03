@@ -6,6 +6,9 @@ use Pantagruel74\MulticurtestBankManagementServiceStubs\values\AmountCurrencyVal
 use Ramsey\Uuid\Uuid;
 use Webmozart\Assert\Assert;
 
+/**
+ * Stub of CurrencyOperationInAccountRequestRecord for tests
+ */
 class CurrencyOperationInAccountRequestRecStub
 {
     private string $id;

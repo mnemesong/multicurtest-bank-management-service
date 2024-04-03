@@ -5,6 +5,9 @@ namespace Pantagruel74\MulticurtestBankManagementServiceStubs\records;
 use Pantagruel74\MulticurtestBankManagementService\records\BankAccountRecInterface;
 use Webmozart\Assert\Assert;
 
+/**
+ * Stub of BankAccountRecord for tests
+ */
 class BankAccountRecStub implements BankAccountRecInterface
 {
     private string $id;

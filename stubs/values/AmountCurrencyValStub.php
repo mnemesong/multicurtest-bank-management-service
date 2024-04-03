@@ -4,6 +4,9 @@ namespace Pantagruel74\MulticurtestBankManagementServiceStubs\values;
 
 use Pantagruel74\MulticurtestBankManagementService\values\AmountInCurrencyValInterface;
 
+/**
+ * Stub of AmountCurrency value-object for tests
+ */
 class AmountCurrencyValStub implements AmountInCurrencyValInterface
 {
     private string $curId;

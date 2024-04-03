@@ -9,6 +9,10 @@ use Pantagruel74\MulticurtestBankManagementService\records\BankAccountRecInterfa
 use Pantagruel74\MulticurtestBankManagementService\values\CurrencyConversionMultiplierVal;
 use Webmozart\Assert\Assert;
 
+/**
+ * Service, that provides api for global currency and rules changing operations
+ * in the bank.
+ */
 class BankManagementService
 {
     private BankAccountMangerInterface $bankAccountManger;
@@ -16,6 +20,7 @@ class BankManagementService
     private BankAccountBalanceManagerInterface $bankAccountBalanceManager;
 
     /**
+     *
      * @param BankAccountMangerInterface $bankAccountManger
      * @param CurrencyManagerInterface $currencyManager
      * @param BankAccountBalanceManagerInterface $bankAccountBalanceManager
@@ -31,9 +36,12 @@ class BankManagementService
     }
 
     /**
+     * Command to create a new currency in the bank, with definition
+     * of multipliers to all else existing currencies.
      * @param string $curId
      * @param CurrencyConversionMultiplierVal[] $conversionMultipliersTo
-     * @param int $decimalPosition
+     * @param int $decimalPosition - guess, that any currency amount will store
+     *      as a value and dot decimal position.
      * @return void
      */
     public function createNewCurrency(
@@ -58,6 +66,8 @@ class BankManagementService
     }
 
     /**
+     * Command to switch off currency in the bank and freeze all amounts
+     * in all account in this currency.
      * @param string $curId
      * @param string $switchToDefaultCurId
      * @return void
@@ -99,6 +109,8 @@ class BankManagementService
     }
 
     /**
+     * Command to change conversion multiplier from currency
+     * to currency in the bank.
      * @param string $curId
      * @param CurrencyConversionMultiplierVal $curConversionMultiplier
      * @return void
@@ -120,6 +132,8 @@ class BankManagementService
     }
 
     /**
+     * Remove the currency form the account.
+     * If that currency was default on account sets new default currency.
      * @param BankAccountRecInterface $acc
      * @param string $curId
      * @param string $newDefaultCurrencyInAcc

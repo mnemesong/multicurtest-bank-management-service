@@ -7,6 +7,9 @@ use Pantagruel74\MulticurtestBankManagementService\values\AmountInCurrencyValInt
 use Pantagruel74\MulticurtestBankManagementServiceStubs\records\CurrencyOperationInAccountRequestRecStub;
 use Pantagruel74\MulticurtestBankManagementServiceStubs\values\AmountCurrencyValStub;
 
+/**
+ * Stub of BankAccountBalanceManager for test
+ */
 class BankAccountBalanceManagerStub implements
     BankAccountBalanceManagerInterface
 {

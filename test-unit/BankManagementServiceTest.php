@@ -13,6 +13,9 @@ use Pantagruel74\MulticurtestBankManagementServiceStubs\records\CurrencyOperatio
 use Pantagruel74\MulticurtestBankManagementServiceStubs\values\AmountCurrencyValStub;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Test-case for BankManagerService for phpunit
+ */
 class BankManagementServiceTest extends TestCase
 {
     public function testCreateNewCurrencyValid()

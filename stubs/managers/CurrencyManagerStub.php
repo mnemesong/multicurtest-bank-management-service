@@ -9,6 +9,9 @@ use Pantagruel74\MulticurtestBankManagementServiceStubs\records\BankAccountRecSt
 use Pantagruel74\MulticurtestBankManagementServiceStubs\values\AmountCurrencyValStub;
 use Webmozart\Assert\Assert;
 
+/**
+ * Stub of CurrencyManager for tests
+ */
 class CurrencyManagerStub implements CurrencyManagerInterface
 {
     private array $currencies = [];
